@@ -26,3 +26,12 @@ arrowRight.addEventListener('click',function(){
 	console.log('flèche droite')
 });
 
+function createBulletPoints(){
+	for (var i=0; i<slides.length; i++){
+		let dots = document.querySelector('.dots');
+		const dot = document.createElement('div');
+		dots.appendChild(dot);
+		dot.classList.add("dot")
+	}
+};
+createBulletPoints();
