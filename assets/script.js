@@ -41,6 +41,27 @@ function selectedDot(){
 };
 
 
-
 createBulletPoints();
 selectedDot();
+
+function dotToRight(){
+	const activeDot = document.querySelector(".dot_selected");
+	let newDot = activeDot.nextElementSibling;
+	if (activeDot != dots.lastElementChild){
+		newDot = activeDot.nextElementSibling;
+	}
+	else {
+		newDot = dots.firstElementChild;
+	}
+	newDot.classList.add("dot_selected");
+	activeDot.classList.remove("dot_selected");
+};
+function dotToLeft(){
+	const activeDot = document.querySelector(".dot_selected");
+	const newDot = activeDot.previousElementSibling;
+	activeDot.classList.remove("dot_selected");
+	newDot.classList.add("dot_selected");
+};
+
+arrowRight.addEventListener('click', dotToRight);
+arrowLeft.addEventListener('click', dotToLeft);
