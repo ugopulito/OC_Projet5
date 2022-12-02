@@ -125,6 +125,13 @@ header {
 	z-index: 0;
     width: 2%;
     height: auto;
+	transition: scale .1s ease-in-out;
+}
+#banner .arrow:hover {
+    scale: 1.1;
+}
+#banner .arrow:active {
+    scale: 1;
 }
 #banner .arrow_left {
 	left: 10px;
@@ -132,6 +139,7 @@ header {
 #banner .arrow_right {
 	right: 10px;
 }
+
 /* Gestion des points du carrousel */
 .dots {
 	position: absolute;

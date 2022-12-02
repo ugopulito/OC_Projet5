@@ -16,9 +16,15 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-
-//Create dots and define first as selected
+const arrowLeft = document.querySelector(".arrow_left");
+const arrowRight = document.querySelector(".arrow_right");
 const dots = document.querySelector('.dots');
+let image = document.querySelector("#banner :nth-child(3)");
+let index = 0;
+let text = document.querySelector("#banner p")
+
+
+//Create dots and define first dot as selected
 function createBulletPoints(){
 	for (var i=0; i<slides.length; i++){
 		const dot = document.createElement('div');
@@ -30,8 +36,6 @@ function selectedDot(){
 	const selected = dots.firstElementChild;
 	selected.classList.add("dot_selected");
 };
-createBulletPoints();
-selectedDot();
 
 //Change selected dot
 function moveDotToRight(){
@@ -53,10 +57,13 @@ function moveDotToLeft(){
 	activeDot.classList.remove("dot_selected");
 };
 
-//Change banner image
-let image = document.querySelector("#banner :nth-child(3)");
-let text = document.querySelector("#banner p")
-let index = 0;
+//Change banner image and text
+function updateBanner(){
+	let newImage = "./assets/images/slideshow/" + slides[index].image
+	let newText = slides[index].tagLine;
+	image.setAttribute("src", newImage);
+	text.innerHTML = newText;
+}
 function bannerToRight(){
 	if (index >= 0 && index < slides.length-1){
 		index++;
@@ -64,10 +71,7 @@ function bannerToRight(){
 	else{
 		index = 0;
 	}
-	let nextImage = "./assets/images/slideshow/" + slides[index].image
-	let nextText = slides[index].tagLine;
-	image.setAttribute("src", nextImage);
-	text.innerHTML = nextText;
+	updateBanner();
 };
 function bannerToLeft(){
 	if (index > 0){
@@ -76,15 +80,12 @@ function bannerToLeft(){
 	else{
 		index = slides.length-1;
 	}
-	let prevImage = "./assets/images/slideshow/" + slides[index].image
-	let prevText = slides[index].tagLine;
-	image.setAttribute("src", prevImage);
-	text.innerHTML = prevText;
+	updateBanner();
 };
 
-//Call functions on click
-const arrowLeft = document.querySelector(".arrow_left");
-const arrowRight = document.querySelector(".arrow_right");
+//Script and functions call
+createBulletPoints();
+selectedDot();
 arrowRight.addEventListener('click', function() {
 	console.log('Clic sur la flèche droite');
 	moveDotToRight();
