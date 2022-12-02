@@ -16,8 +16,8 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-const arrowLeft = document.querySelector(".arrow_left")
-const arrowRight = document.querySelector(".arrow_right")
+const arrowLeft = document.querySelector(".arrow_left");
+const arrowRight = document.querySelector(".arrow_right");
 const dots = document.querySelector('.dots');
 
 arrowLeft.addEventListener('click',function(){
@@ -44,24 +44,56 @@ function selectedDot(){
 createBulletPoints();
 selectedDot();
 
-function dotToRight(){
+function moveDotToRight(){
 	const activeDot = document.querySelector(".dot_selected");
 	let newDot = activeDot.nextElementSibling;
-	if (activeDot != dots.lastElementChild){
-		newDot = activeDot.nextElementSibling;
-	}
-	else {
+	if (activeDot == dots.lastElementChild){
 		newDot = dots.firstElementChild;
 	}
 	newDot.classList.add("dot_selected");
 	activeDot.classList.remove("dot_selected");
 };
-function dotToLeft(){
+function moveDotToLeft(){
 	const activeDot = document.querySelector(".dot_selected");
-	const newDot = activeDot.previousElementSibling;
-	activeDot.classList.remove("dot_selected");
+	let newDot = activeDot.previousElementSibling;
+	if (activeDot == dots.firstElementChild){
+		newDot = dots.lastElementChild;
+	}
 	newDot.classList.add("dot_selected");
+	activeDot.classList.remove("dot_selected");
 };
 
-arrowRight.addEventListener('click', dotToRight);
-arrowLeft.addEventListener('click', dotToLeft);
+arrowRight.addEventListener('click', moveDotToRight);
+arrowLeft.addEventListener('click', moveDotToLeft);
+
+//Change banner image
+
+let image = document.querySelector("#banner :nth-child(3)");
+let text = document.querySelector("#banner p")
+let index = 0;
+function bannerToRight(){
+	if (index >= 0 && index < slides.length-1){
+		index++;
+	}
+	else{
+		index = 0;
+	}
+	let nextImage = "./assets/images/slideshow/" + slides[index].image
+	let nextText = slides[index].tagLine;
+	image.setAttribute("src", nextImage);
+	text.innerHTML = nextText;
+};
+function bannerToLeft(){
+	if (index > 0){
+		index-- ;
+	}
+	else{
+		index = slides.length-1;
+	}
+	let prevImage = "./assets/images/slideshow/" + slides[index].image
+	let prevText = slides[index].tagLine;
+	image.setAttribute("src", prevImage);
+	text.innerHTML = prevText;
+};
+arrowRight.addEventListener('click', bannerToRight);
+arrowLeft.addEventListener('click', bannerToLeft);
