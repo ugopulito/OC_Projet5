@@ -16,17 +16,9 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
-const arrowLeft = document.querySelector(".arrow_left");
-const arrowRight = document.querySelector(".arrow_right");
+
+//Create dots and define first as selected
 const dots = document.querySelector('.dots');
-
-arrowLeft.addEventListener('click',function(){
-	console.log('flèche gauche')
-});
-arrowRight.addEventListener('click',function(){
-	console.log('flèche droite')
-});
-
 function createBulletPoints(){
 	for (var i=0; i<slides.length; i++){
 		const dot = document.createElement('div');
@@ -34,16 +26,14 @@ function createBulletPoints(){
 		dot.classList.add("dot");
 	}
 };
-
 function selectedDot(){
 	const selected = dots.firstElementChild;
 	selected.classList.add("dot_selected");
 };
-
-
 createBulletPoints();
 selectedDot();
 
+//Change selected dot
 function moveDotToRight(){
 	const activeDot = document.querySelector(".dot_selected");
 	let newDot = activeDot.nextElementSibling;
@@ -63,11 +53,7 @@ function moveDotToLeft(){
 	activeDot.classList.remove("dot_selected");
 };
 
-arrowRight.addEventListener('click', moveDotToRight);
-arrowLeft.addEventListener('click', moveDotToLeft);
-
 //Change banner image
-
 let image = document.querySelector("#banner :nth-child(3)");
 let text = document.querySelector("#banner p")
 let index = 0;
@@ -95,5 +81,17 @@ function bannerToLeft(){
 	image.setAttribute("src", prevImage);
 	text.innerHTML = prevText;
 };
-arrowRight.addEventListener('click', bannerToRight);
-arrowLeft.addEventListener('click', bannerToLeft);
+
+//Call functions on click
+const arrowLeft = document.querySelector(".arrow_left");
+const arrowRight = document.querySelector(".arrow_right");
+arrowRight.addEventListener('click', function() {
+	console.log('Clic sur la flèche droite');
+	moveDotToRight();
+	bannerToRight();
+});
+arrowLeft.addEventListener('click', function() {
+	console.log('Clic sur la flèche gauche');
+	moveDotToLeft();
+	bannerToLeft();
+});
